@@ -2,11 +2,36 @@ import Vue from 'vue'
 import VueRouter, { NavigationGuardNext, Route, RouteConfig } from 'vue-router'
 
 import System from './modules/system'
+import User from './modules/user'
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
-  ...System,
+  {
+    path: '/',
+    redirect: '/login'
+  },
+  {
+    name: 'Login',
+    path: '/login',
+    meta: {
+      title: '登录'
+    },
+    component: () => import('views/system/Login.vue')
+  },
+  {
+    name: 'Home',
+    path: '/home',
+    redirect: '/welcome',
+    meta: {
+      title: '主页'
+    },
+    component: () => import('views/system/Home.vue'),
+    children: [
+      ...System,
+      ...User
+    ]
+  },
 ]
 
 const router = new VueRouter({
