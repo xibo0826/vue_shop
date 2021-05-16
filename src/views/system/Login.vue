@@ -63,12 +63,12 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) {
-          this.$message.error('请先修改页面提示的错误!')
+          this.$message.error('请先修改页面提示的错误!', true)
         } else {
           const { data } = await this.$http.post('login', this.loginForm)
           console.log(data)
           if (data.meta.status !== 200) {
-            this.$message.error('登录失败!请确认用户名和密码.')
+            this.$message.error('登录失败!请确认用户名和密码.', true)
           } else {
             this.$message.success('登录成功.')
             sessionStorage.setItem('token', data.data.token)
