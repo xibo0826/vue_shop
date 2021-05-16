@@ -1,41 +1,50 @@
 <template>
-  <div class="login_container">
-    <div class="login_box">
-      <div class="logo_box">
-        <img src="~assets/images/logo.png" alt="" />
+  <section>
+    <div class="color"></div>
+    <div class="color"></div>
+    <div class="color"></div>
+    <div class="box">
+      <div class="circle" style="--x: 0"></div>
+      <div class="circle" style="--x: 1"></div>
+      <div class="circle" style="--x: 2"></div>
+      <div class="circle" style="--x: 3"></div>
+      <div class="circle" style="--x: 4"></div>
+      <div class="container">
+        <div class="form">
+          <h2>登录</h2>
+          <el-form
+            :model="loginForm"
+            ref="loginFormRef"
+            :rules="rules"
+            label-width="0"
+            class="login_form"
+          >
+            <el-form-item prop="username">
+              <el-input
+                ref="userNameRef"
+                v-model="loginForm.username"
+                @keyup.enter.native="login"
+                prefix-icon="el-icon-user"
+              ></el-input>
+            </el-form-item>
+            <el-form-item prop="password">
+              <el-input
+                ref="passwordRef"
+                v-model="loginForm.password"
+                @keyup.enter.native="login"
+                prefix-icon="el-icon-lock"
+                show-password
+              ></el-input>
+            </el-form-item>
+            <el-form-item class="btn_area">
+              <el-button type="primary" @click="login">登录</el-button>
+              <el-button type="info" @click="reset">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
-      <el-form
-        :model="loginForm"
-        ref="loginFormRef"
-        :rules="rules"
-        label-width="0"
-        class="login_form"
-      >
-        <el-form-item prop="username">
-          <el-input
-            ref="userNameRef"
-            v-model="loginForm.username"
-            @keyup.enter.native="login"
-            prefix-icon="el-icon-user"
-          ></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input
-            ref="passwordRef"
-            v-model="loginForm.password"
-            @keyup.enter.native="login"
-            prefix-icon="el-icon-lock"
-            show-password
-          ></el-input>
-        </el-form-item>
-        <!-- 按钮区域 -->
-        <el-form-item class="btn_area">
-          <el-button type="primary" @click="login">登录</el-button>
-          <el-button type="info" @click="reset">重置</el-button>
-        </el-form-item>
-      </el-form>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -63,12 +72,12 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async (valid) => {
         if (!valid) {
-          this.$message.error('请先修改页面提示的错误!')
+          this.$message.error('请先修改页面提示的错误!', true)
         } else {
           const { data } = await this.$http.post('login', this.loginForm)
           console.log(data)
           if (data.meta.status !== 200) {
-            this.$message.error('登录失败!请确认用户名和密码.')
+            this.$message.error('登录失败!请确认用户名和密码.', true)
           } else {
             this.$message.success('登录成功.')
             sessionStorage.setItem('token', data.data.token)
@@ -87,52 +96,165 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.login_container {
-  height: 100%;
-  background: #2b4b6b;
-}
 
-.login_box {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 450px;
-  height: 300px;
-  border-radius: 15px;
-  background: #fdfefd;
-  transform: translate(-50%, -50%);
-}
-
-.logo_box {
+section {
+  position: relative;
   overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 130px;
-  height: 130px;
-  padding: 10px;
-  border: 1px solid #eee;
-  border-radius: 50%;
-  background: #fff;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: -webkit-linear-gradient(to bottom, #f1f4f9, #dff1ff);
+}
 
-  img {
-    width: 100%;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    background: #edeeec;
+section .color {
+  position: absolute;
+  filter: blur(200px);
+}
+
+
+section .color:nth-child(1) {
+  top: -350px;
+  width: 600px;
+  height: 600px;
+  background: #ff359b;
+}
+
+section .color:nth-child(2) {
+  bottom: -150px;
+  left: 100px;
+  width: 500px;
+  height: 500px;
+  background: #fffd87;
+}
+
+section .color:nth-child(3) {
+  bottom: 50px;
+  right: 100px;
+  width: 500px;
+  height: 500px;
+  background: #00d2ff;
+}
+
+.box {
+  position: relative;
+}
+
+.box .circle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  filter: hue-rotate(calc(var(--x) * 70deg));
+  animation: animate 10s linear infinite;
+  animation-delay: calc(var(--x) * -1s);
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    transform: translateY(-50px);
+  }
+  50% {
+    transform: translateY(50px);
   }
 }
 
-.login_form {
-  position: absolute;
-  bottom: 0;
+.box .circle:nth-child(1) {
+  top: -50px;
+  right: -60px;
+  width: 100px;
+  height: 100px;
+}
+
+.box .circle:nth-child(2) {
+  top: 150px;
+  left: -100px;
+  width: 120px;
+  height: 120px;
+  z-index: 2;
+}
+
+.box .circle:nth-child(3) {
+  bottom: 50px;
+  right: -60px;
+  width: 80px;
+  height: 80px;
+  z-index: 2;
+}
+
+.box .circle:nth-child(4) {
+  bottom: -80px;
+  left: 100px;
+  width: 60px;
+  height: 60px;
+}
+
+.box .circle:nth-child(5) {
+  top: -80px;
+  left: 140px;
+  width: 60px;
+  height: 60px;
+}
+
+.container {
+  position: relative;
+  width: 400px;
+  min-height: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form {
+  position: relative;
   width: 100%;
-  padding: 0 20px;
+  height: 100%;
+  padding: 50px;
+}
+
+.form h2 {
+  position: relative;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.form h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 0px;
+  height: 3px;
+  background: #fff;
+  transition: 0.5s;
+}
+
+.form h2:hover:before {
+  width: 53px;
 }
 
 .btn_area {
   display: flex;
   justify-content: flex-end;
+
+  .el-button {
+    border-radius: 15px;
+  }
 }
+
 </style>
