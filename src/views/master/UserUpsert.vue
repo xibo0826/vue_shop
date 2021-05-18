@@ -22,7 +22,6 @@
           <el-input
             v-model="user.username"
             :disabled="!isNew"
-            @keyup.enter.native="addUser"
           ></el-input>
         </el-form-item>
         <el-form-item
@@ -32,7 +31,6 @@
         >
           <el-input
             v-model="user.password"
-            @keyup.enter.native="addUser"
             show-password
           ></el-input>
         </el-form-item>
@@ -52,7 +50,6 @@
         >
           <el-input
             v-model="user.email"
-            @keyup.enter.native="addUser"
           ></el-input>
         </el-form-item>
         <el-form-item
@@ -61,14 +58,13 @@
         >
           <el-input
             v-model="user.mobile"
-            @keyup.enter.native="addUser"
           ></el-input>
         </el-form-item>
         <el-form-item class="btn_area_right">
           <el-button
             type="primary"
             @click="upsertUser"
-          >登录</el-button>
+          >保存</el-button>
           <el-button
             type="info"
             @click="cancel"

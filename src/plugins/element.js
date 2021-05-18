@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { Button,Form, FormItem,Input, Container, Aside, Main, Menu, Submenu, MenuItemGroup, MenuItem, Header, Dropdown, DropdownMenu, 
-        DropdownItem, Table, TableColumn, Breadcrumb, BreadcrumbItem, Card, Switch, Select, Option, Row, Col, Pagination, Tooltip, Dialog, MessageBox } from 'element-ui'
+        DropdownItem, Table, TableColumn, Breadcrumb, BreadcrumbItem, Card, Switch, Select, Option, Row, Col, Pagination, Tooltip, 
+        Dialog, MessageBox, Tag, Tree } from 'element-ui'
 import { customersMessage } from './config/resetMessage.js'
 
 Vue.use(Button)
@@ -31,6 +32,8 @@ Vue.use(Col)
 Vue.use(Pagination)
 Vue.use(Tooltip)
 Vue.use(Dialog)
+Vue.use(Tag)
+Vue.use(Tree)
 
 Vue.prototype.$message = customersMessage;
 Vue.prototype.$messagebox = MessageBox;
