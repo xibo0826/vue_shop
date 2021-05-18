@@ -3,26 +3,42 @@
     <el-container>
       <el-header>
         <div>
-          <img src="~assets/images/logo.png" alt="" class="logo" />
+          <img
+            src="~assets/images/logo.png"
+            alt=""
+            class="logo"
+          />
           <h1 class="title">后台管理系统</h1>
         </div>
         <div>
-          <el-dropdown @command="headerDropdownClick">
-            <i class="el-icon-setting"></i>
+          <span class="user">你好: 王小虎</span>
+          <el-dropdown>
+            <span
+              class="el-dropdown-link"
+              @command="changeLang"
+            >
+              切换语言<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="myPage">我的主页</el-dropdown-item>
-              <el-dropdown-item command="logout">登出</el-dropdown-item>
+              <el-dropdown-item command="ch">中文</el-dropdown-item>
+              <el-dropdown-item command="eng">English</el-dropdown-item>
+              <el-dropdown-item command="ja">日本語</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <span>王小虎</span>
+          <a
+            href="#"
+            @click.stop=""
+            class="el-dropdown-link"
+          >登出</a>
         </div>
       </el-header>
       <el-container>
         <el-aside :width="isCollapse ? '63px' : '200px'">
-          <div class="toggle-button" @click="toggleMenu">
-            <i
-              :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"
-            ></i>
+          <div
+            class="toggle-button"
+            @click="toggleMenu"
+          >
+            <i :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"></i>
           </div>
           <el-menu
             :background-color="isCollapse ? '#5E8396' : 'transparent'"
@@ -61,6 +77,11 @@
   </div>
 </template>
 <script>
+import { localeZhcn } from 'element-ui/lib/locale/lang/zh-CN'
+import { localeEn } from 'element-ui/lib/locale/lang/en'
+import { localeJa } from 'element-ui/lib/locale/lang/ja'
+import locale from 'element-ui/lib/locale'
+
 export default {
   created() {
     this.getMenuList()
@@ -79,8 +100,28 @@ export default {
     }
   },
   methods: {
-    // 顶部下拉菜单
-    headerDropdownClick(command) {
+    // 登出
+    logout() {
+      sessionStorage.clear()
+      this.$router.push('/login')
+    },
+
+    // 语言切换
+    dropdown(command) {
+      switch (command) {
+        case 'ch':
+          locale.use(localeZhcn)
+          break
+        case 'en':
+          locale.use(localeEn)
+          break
+        case 'ja':
+          locale.use(localeJa)
+          break
+        default:
+          locale.use(localeZhcn)
+          break
+      }
       if (command === 'logout') {
         // 登出
         sessionStorage.clear()
@@ -100,8 +141,8 @@ export default {
     },
   },
   computed: {
-    activeMenuItem: function() {
-      return this.$route.path.substring(1);
+    activeMenuItem: function () {
+      return this.$route.path.substring(1)
     },
   },
 }
@@ -139,6 +180,22 @@ export default {
     margin-right: 15px;
     color: #fff;
     cursor: pointer;
+  }
+
+  .el-dropdown-link {
+    margin: 0 10px;
+    cursor: pointer;
+    color: #444;
+    font-size: 14px;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
+
+  .user {
+    margin: 0 100px;
+    color: #444;
+    font-size: 14px;
   }
 }
 

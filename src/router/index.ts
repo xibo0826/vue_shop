@@ -3,6 +3,7 @@ import VueRouter, { NavigationGuardNext, Route, RouteConfig } from 'vue-router'
 
 import System from './modules/system'
 import User from './modules/master'
+import Goods from './modules/goods'
 
 Vue.use(VueRouter)
 
@@ -29,7 +30,8 @@ const routes: Array<RouteConfig> = [
     component: () => import('views/system/Home.vue'),
     children: [
       ...System,
-      ...User
+      ...User,
+      ...Goods
     ]
   },
 ]
