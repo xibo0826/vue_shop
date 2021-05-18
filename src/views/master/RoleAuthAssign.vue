@@ -57,21 +57,14 @@ export default {
 
       this.initData.roleAuthData = this.roleAuth
         .reduce((pre, next) => {
-          if (!next) {
-            return
-          }
           if (next.children) {
             let idsC = next.children.reduce((preC, nextC) => {
               if (nextC.children) {
-                return [nextC.id, ...nextC.children.map((x) => x.id)]
-              } else {
-                return nextC.id
+                preC.push(...nextC.children.map((x) => x.id))
+                return preC
               }
             }, [])
-            pre.push(...[next.id, ...idsC])
-            return pre
-          } else {
-            pre.push(next.id)
+            pre.push(...idsC)
             return pre
           }
         }, [])

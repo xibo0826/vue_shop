@@ -25,6 +25,10 @@ a {
     margin-bottom: 15px;
 }
 
+.content {
+    overflow: auto;
+}
+
 .search-cond-title {
     float: left;
     width: 99px;

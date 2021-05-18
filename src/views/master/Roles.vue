@@ -227,7 +227,7 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
 .valign-center {
   display: flex;
   align-items: center;
