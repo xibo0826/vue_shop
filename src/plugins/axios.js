@@ -1,19 +1,43 @@
 import Vue from 'vue'
 import axios from 'axios'
+import { Loading } from 'element-ui'
 
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
+axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 
-axios.interceptors.request.use(config => {
-    config.headers.Authorization = sessionStorage.getItem('token');
-    return config;
+let loadingInstance = null
+axios.interceptors.request.use((config) => {
+  loadingInstance = Loading.service({
+    fullscreen: true,
+    lock: true,
+    text: 'Loading',
+    spinner: 'el-icon-loading',
+    background: 'rgba(0, 0, 0, 0.7)',
+  })
+
+  let token = sessionStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = token
+  } else {
+    window.vm.$router.push('/login')
+  }
+  return config
 })
 
-axios.interceptors.response.use(response => {
-    return response;
-}, error => {
-    if (error.response.status !== 200) {
-        console.log('服务端错误');
+axios.interceptors.response.use(
+  (response) => {
+    loadingInstance.close()
+    if (response.data.meta.status !== 200) {
+      window.vm.$message.error(response.data.meta.msg, false)
+    } else {
+      return response
     }
-})
+  },
+  (error) => {
+    loadingInstance.close()
+    if (error.response.status !== 200) {
+      window.vm.$message.error('服务端错误', true)
+    }
+  }
+)
 
-Vue.prototype.$http = axios;
+Vue.prototype.$http = axios

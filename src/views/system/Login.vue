@@ -36,7 +36,7 @@
                 show-password
               ></el-input>
             </el-form-item>
-            <el-form-item class="btn_area">
+            <el-form-item class="btn_area_right">
               <el-button type="primary" @click="login">登录</el-button>
               <el-button type="info" @click="reset">重置</el-button>
             </el-form-item>
@@ -75,14 +75,9 @@ export default {
           this.$message.error('请先修改页面提示的错误!', true)
         } else {
           const { data } = await this.$http.post('login', this.loginForm)
-          console.log(data)
-          if (data.meta.status !== 200) {
-            this.$message.error('登录失败!请确认用户名和密码.', true)
-          } else {
-            this.$message.success('登录成功.')
-            sessionStorage.setItem('token', data.data.token)
-            this.$router.push('/home')
-          }
+          this.$message.success('登录成功.')
+          sessionStorage.setItem('token', data.data.token)
+          this.$router.push('/home')
         }
       })
     },
@@ -248,13 +243,6 @@ section .color:nth-child(3) {
   width: 53px;
 }
 
-.btn_area {
-  display: flex;
-  justify-content: flex-end;
 
-  .el-button {
-    border-radius: 15px;
-  }
-}
 
 </style>

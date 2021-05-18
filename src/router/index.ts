@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter, { NavigationGuardNext, Route, RouteConfig } from 'vue-router'
 
 import System from './modules/system'
-import User from './modules/user'
+import User from './modules/master'
 
 Vue.use(VueRouter)
 

@@ -6,9 +6,13 @@ import './plugins/axios.js'
 
 import 'assets/css/base.css'
 
+declare global { interface Window { vm: Vue; }}
+
 Vue.config.productionTip = false
 
-new Vue({
+const vm = new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')
+
+window.vm = vm;

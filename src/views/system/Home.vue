@@ -19,18 +19,23 @@
       </el-header>
       <el-container>
         <el-aside :width="isCollapse ? '63px' : '200px'">
-          <div class="toggle-button" @click="toggleMenu"><i :class="isCollapse ? 'el-icon-arrow-right':'el-icon-arrow-left'"></i></div>
+          <div class="toggle-button" @click="toggleMenu">
+            <i
+              :class="isCollapse ? 'el-icon-arrow-right' : 'el-icon-arrow-left'"
+            ></i>
+          </div>
           <el-menu
             :background-color="isCollapse ? '#5E8396' : 'transparent'"
             text-color="#fff"
             active-text-color="#409EFF"
+            :default-active="activeMenuItem"
             :collapse="isCollapse"
             :collapse-transition="false"
             :router="true"
             unique-opened
           >
             <el-submenu
-              v-for="(menu, index) in menuList"
+              v-for="(menu) in menuList"
               :index="menu.path"
               :key="menu.id"
             >
@@ -49,8 +54,7 @@
           </el-menu>
         </el-aside>
         <el-main>
-          <router-view>
-          </router-view>
+          <router-view> </router-view>
         </el-main>
       </el-container>
     </el-container>
@@ -95,6 +99,11 @@ export default {
       this.isCollapse = !this.isCollapse
     },
   },
+  computed: {
+    activeMenuItem: function() {
+      return this.$route.path.substring(1);
+    },
+  },
 }
 </script>
 <style lang="less" scoped>
@@ -136,7 +145,7 @@ export default {
 .el-aside {
   overflow: hidden;
   background: -webkit-linear-gradient(top, #545c64, #70cff5);
-  transition: .3s;
+  transition: 0.3s;
 
   .toggle-button {
     height: 30px;
