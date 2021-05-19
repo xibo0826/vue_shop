@@ -11,11 +11,17 @@ const resetMessage = (options) => {
 };
 ['error','success','info','warning'].forEach(type => {
     resetMessage[type] = (options, notMultiple) => {
+        if (options === undefined) {
+            options = ''
+        }
         if(typeof options === 'string') {
             options = {
                 message:options
             }
             options.type = type
+            if (!notMultiple === undefined) {
+                notMultiple = false
+            }
             options.notMultiple = notMultiple
         }
         return resetMessage(options)

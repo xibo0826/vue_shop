@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-tooltip
+      v-if="showEdit"
       content="编辑"
       placement="top"
       :enterable="false"
@@ -14,6 +15,7 @@
       ></el-button>
     </el-tooltip>
     <el-tooltip
+      v-if="showRemove"
       content="删除"
       placement="top"
       :enterable="false"
@@ -32,7 +34,18 @@
 <script>
 export default {
   props: {
-    scope: Object,
+    scope: {
+      type: Object,
+      require: true
+    },
+    showEdit: {
+      type: Boolean,
+      default: true,
+    },
+    showRemove: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {}

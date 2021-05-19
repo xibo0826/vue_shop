@@ -4,6 +4,7 @@ import VueRouter, { NavigationGuardNext, Route, RouteConfig } from 'vue-router'
 import System from './modules/system'
 import User from './modules/master'
 import Goods from './modules/goods'
+import Orders from './modules/orders'
 
 Vue.use(VueRouter)
 
@@ -31,7 +32,8 @@ const routes: Array<RouteConfig> = [
     children: [
       ...System,
       ...User,
-      ...Goods
+      ...Goods,
+      ...Orders
     ]
   },
 ]

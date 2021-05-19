@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Button,Form, FormItem,Input, Container, Aside, Main, Menu, Submenu, MenuItemGroup, MenuItem, Header, Dropdown, DropdownMenu, 
         DropdownItem, Table, TableColumn, Breadcrumb, BreadcrumbItem, Card, Switch, Select, Option, Row, Col, Pagination, Tooltip, 
-        Dialog, MessageBox, Tag, Tree, Cascader } from 'element-ui'
+        Dialog, MessageBox, Tag, Tree, Cascader, Timeline, TimelineItem } from 'element-ui'
 
 import { customersMessage } from './config/resetMessage.js'
 
@@ -36,6 +36,8 @@ Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Cascader)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 
 Vue.prototype.$message = customersMessage;
 Vue.prototype.$messagebox = MessageBox;
