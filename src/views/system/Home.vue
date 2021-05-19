@@ -8,20 +8,17 @@
             alt=""
             class="logo"
           />
-          <h1 class="title">后台管理系统</h1>
+          <h1 class="title">{{ $t("lang.systemName") }}</h1>
         </div>
         <div>
-          <span class="user">你好: 王小虎</span>
-          <el-dropdown>
-            <span
-              class="el-dropdown-link"
-              @command="changeLang"
-            >
-              切换语言<i class="el-icon-arrow-down el-icon--right"></i>
+          <span class="user">{{ $t("lang.welcome") }}: 王小虎</span>
+          <el-dropdown @command="changeLang">
+            <span class="el-dropdown-link">
+              {{ $t("lang.changeLanguage") }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="ch">中文</el-dropdown-item>
-              <el-dropdown-item command="eng">English</el-dropdown-item>
+              <el-dropdown-item command="zh">中文</el-dropdown-item>
+              <el-dropdown-item command="en">English</el-dropdown-item>
               <el-dropdown-item command="ja">日本語</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -29,7 +26,7 @@
             href="#"
             @click.stop=""
             class="el-dropdown-link"
-          >登出</a>
+          >{{ $t("lang.logout") }}</a>
         </div>
       </el-header>
       <el-container>
@@ -107,9 +104,10 @@ export default {
     },
 
     // 语言切换
-    dropdown(command) {
+    changeLang(command) {
+      this.$i18n.locale = command
       switch (command) {
-        case 'ch':
+        case 'zh':
           locale.use(localeZhcn)
           break
         case 'en':

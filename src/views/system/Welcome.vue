@@ -1,5 +1,5 @@
 <template>
-  <div>welcome</div>
+  <div>{{ $t("lang.welcome") }}</div>
 </template>
 <script>
 export default {
