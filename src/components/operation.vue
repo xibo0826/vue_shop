@@ -32,17 +32,22 @@
 <script>
 export default {
   props: {
-    rowData,
+    scope: Object,
   },
   data() {
     return {}
   },
   methods: {
     edit() {
-      this.$emit('editClick', this.rowData)
+      this.$emit('editClick', this.scope)
     },
-    remove() {
-      this.$emit('deleteClick', this.rowData)
+    async remove() {
+      await this.$messagebox.confirm('删除操作, 是否继续?', '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+      this.$emit('deleteClick', this.scope)
     },
   },
 }

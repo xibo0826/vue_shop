@@ -103,45 +103,21 @@
             align="center"
           >
             <template slot-scope="scope">
-              <el-tooltip
-                content="编辑"
-                placement="top"
-                :enterable="false"
-              >
-                <el-button
-                  icon="el-icon-edit"
-                  type="primary"
-                  circle
-                  size="mini"
-                  @click="editRole(scope.row.id)"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip
-                content="删除"
-                placement="top"
-                :enterable="false"
-              >
-                <el-button
-                  icon="el-icon-delete"
-                  type="danger"
-                  circle
-                  size="mini"
-                  @click="deleteRole(scope.row.id)"
-                ></el-button>
-              </el-tooltip>
-              <el-tooltip
-                content="分配权限"
-                placement="top"
-                :enterable="false"
-              >
-                <el-button
-                  icon="el-icon-setting"
-                  type="warning"
-                  circle
-                  size="mini"
-                  @click="assignAuth(scope.row)"
-                ></el-button>
-              </el-tooltip>
+              <operation :scope="scope.row" @editClick="editRole" @deleteClick="deleteRole">
+                <el-tooltip
+                  content="分配权限"
+                  placement="top"
+                  :enterable="false"
+                >
+                  <el-button
+                    icon="el-icon-setting"
+                    type="warning"
+                    circle
+                    size="mini"
+                    @click="assignAuth(scope.row)"
+                  ></el-button>
+                </el-tooltip>
+              </operation>
             </template>
           </el-table-column>
         </el-table>
@@ -186,29 +162,26 @@ export default {
       this.upsertRoleParam.isVisible = true
     },
 
-    editRole(id) {
-      this.upsertRoleParam.id = id
+    editRole(role) {
+      this.upsertRoleParam.id = role.id
       this.upsertRoleParam.isVisible = true
     },
 
-    async deleteRole(id) {
+    async deleteRole(role) {
       await this.$messagebox.confirm('删除角色, 是否继续?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       })
-      await this.$http.delete(`roles/${id}`)
+      await this.$http.delete(`roles/${role.id}`)
       this.$message.success('删除成功')
       this.search()
     },
 
     async deleteAuth(role, authId) {
-      await this.$messagebox.confirm('删除权限, 是否继续?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      })
-      const { data: result } = await this.$http.delete(`roles/${role.id}/rights/${authId}`)
+      const { data: result } = await this.$http.delete(
+        `roles/${role.id}/rights/${authId}`
+      )
       role.children = result.data
       this.$message.success('删除成功')
     },
@@ -223,7 +196,7 @@ export default {
     breadcrumbNav,
     operation,
     upsertRole,
-    assignAuth
+    assignAuth,
   },
 }
 </script>

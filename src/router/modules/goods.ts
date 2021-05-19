@@ -7,5 +7,14 @@ export default [
             menu: '商品管理'
         },
         component: () => import('views/goods/Categories.vue'),
+    },
+    {
+        name: 'Goods',
+        path: '/goods',
+        meta: {
+            title: '商品列表',
+            menu: '商品管理'
+        },
+        component: () => import('views/goods/Goods.vue'),
     }
 ]

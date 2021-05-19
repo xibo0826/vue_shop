@@ -43,5 +43,8 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
+.el-dropdown:hover {
+  cursor: pointer;
+}
 </style>

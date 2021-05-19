@@ -13,11 +13,13 @@
         <div>
           <span class="user">{{ $t("lang.welcome") }}: 王小虎</span>
           <language></language>
-          <a
-            href="#"
-            @click.stop="logout"
+          <el-button
             class="el-dropdown-link"
-          >{{ $t("lang.logout") }}</a>
+            type="info"
+            @click="logout"
+            size="mini"
+            plain
+          >{{ $t("lang.logout") }}</el-button>
         </div>
       </el-header>
       <el-container>
@@ -107,8 +109,8 @@ export default {
     },
   },
   components: {
-    language
-  }
+    language,
+  },
 }
 </script>
 <style lang="less" scoped>

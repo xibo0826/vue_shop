@@ -23,10 +23,10 @@
         <el-form-item
           prop="cat_pid"
           label="父级分类"
+          v-show="upsertCategoryForm.isNew"
         >
           <el-cascader
             v-model="category.cat_pid"
-            v-show="upsertCategoryForm.isNew"
             :options="upsertCategoryForm.categoryCombo"
             :props="{ checkStrictly: true, value:'cat_id', label:'cat_name' }"
             @change="selectPCat"
@@ -119,32 +119,12 @@
               align="center"
             >
               <template slot-scope="scope">
-                <el-tooltip
-                  content="编辑"
-                  placement="top"
-                  :enterable="false"
+                <operation
+                  :scope="scope.row"
+                  @editClick="editCategory"
+                  @deleteClick="deleteCategory"
                 >
-                  <el-button
-                    icon="el-icon-edit"
-                    type="primary"
-                    circle
-                    size="mini"
-                    @click="editCategory(scope.row)"
-                  ></el-button>
-                </el-tooltip>
-                <el-tooltip
-                  content="删除"
-                  placement="top"
-                  :enterable="false"
-                >
-                  <el-button
-                    icon="el-icon-delete"
-                    type="danger"
-                    circle
-                    size="mini"
-                    @click="deleteCategory(scope.row.cat_id)"
-                  ></el-button>
-                </el-tooltip>
+                </operation>
               </template>
             </el-table-column>
           </el-table>
@@ -167,6 +147,7 @@
 <script>
 import Vue from 'vue'
 import breadcrumbNav from 'components/breadcrumb.vue'
+import operation from 'components/operation.vue'
 
 export default {
   data() {
@@ -265,24 +246,19 @@ export default {
     },
 
     newCategory() {
+      this.upsertCategoryForm.isNew = true
       this.upsertCategoryForm.isVisible = true
     },
 
     editCategory(category) {
       this.category.cat_id = category.cat_id
       this.category.cat_name = category.cat_name
-      this.upsertCategoryForm.isNew = false;
+      this.upsertCategoryForm.isNew = false
       this.upsertCategoryForm.isVisible = true
     },
 
-    async deleteCategory(id) {
-      await this.$messagebox.confirm('删除分类, 是否继续?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      })
-
-      await this.$http.delete(`categories/${id}`)
+    async deleteCategory(category) {
+      await this.$http.delete(`categories/${category.cat_id}`)
       this.$message.success('删除成功')
       this.search()
     },
@@ -311,7 +287,10 @@ export default {
       if (this.upsertCategoryForm.isNew) {
         await this.$http.post('categories', this.category)
       } else {
-        await this.$http.put(`categories/${this.category.cat_id}`, this.category)
+        await this.$http.put(
+          `categories/${this.category.cat_id}`,
+          this.category
+        )
       }
       this.$message.success(this.$t('lang.saveSuccess'))
       this.$refs.upsertCatFormRef.resetFields()
@@ -325,7 +304,8 @@ export default {
     },
   },
   components: {
-    breadcrumbNav
+    breadcrumbNav,
+    operation
   },
 }
 </script>
