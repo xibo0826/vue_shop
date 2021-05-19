@@ -11,6 +11,7 @@
           plain
         >检索</el-button>
       </div>
+      <el-divider></el-divider>
       <div class="search-cond-area">
         <el-row :gutter="20">
           <el-col :span="6">
@@ -61,6 +62,7 @@
           </el-col>
         </el-row>
       </div>
+      <el-divider></el-divider>
       <div class="table-area">
         <el-table
           :data="searchResult.orders"

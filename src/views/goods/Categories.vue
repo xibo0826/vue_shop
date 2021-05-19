@@ -57,6 +57,7 @@
             plain
           >添加</el-button>
         </div>
+        <el-divider></el-divider>
         <div class="table-area">
           <el-table
             :data="searchResult.categories"
@@ -305,7 +306,7 @@ export default {
   },
   components: {
     breadcrumbNav,
-    operation
+    operation,
   },
 }
 </script>

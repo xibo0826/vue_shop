@@ -22,6 +22,7 @@
           plain
         >新建</el-button>
       </div>
+      <el-divider></el-divider>
       <div class="table-area">
         <el-table
           :data="roleForm.searchResult.roles"

@@ -10,7 +10,7 @@ const showPrice = (price: Number) => {
     if (!price) {
         return ''
     }
-    return '¥ ' + price.toFixed(2).toLocaleString()
+    return '¥ ' + price.toLocaleString()
 }
 
 export { formatDate, showPrice }

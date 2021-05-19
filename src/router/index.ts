@@ -5,6 +5,7 @@ import System from './modules/system'
 import User from './modules/master'
 import Goods from './modules/goods'
 import Orders from './modules/orders'
+import Reports from './modules/reports'
 
 Vue.use(VueRouter)
 
@@ -33,7 +34,8 @@ const routes: Array<RouteConfig> = [
       ...System,
       ...User,
       ...Goods,
-      ...Orders
+      ...Orders,
+      ...Reports
     ]
   },
 ]
