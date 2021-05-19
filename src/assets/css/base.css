@@ -85,3 +85,7 @@ a {
     display: flex;
     justify-content: flex-end;
 }
+
+.el-cascader-menu {
+    height: 300px;
+}

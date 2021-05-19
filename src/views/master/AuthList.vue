@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-      <el-breadcrumb-item>权限列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <breadcrumbNav></breadcrumbNav>
     <el-card class="content">
       <el-tree
         ref="authTree"
@@ -18,6 +14,7 @@
   </div>
 </template>
 <script>
+import breadcrumbNav from 'components/breadcrumb.vue'
 export default {
   data() {
     return {
@@ -35,6 +32,9 @@ export default {
       this.initData.authData = auth.data
     },
   },
+  components: {
+    breadcrumbNav
+  }
 }
 </script>
 <style>

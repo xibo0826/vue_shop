@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      :title="isNew ? '新建' : '修改'"
+      :title="isNew ? '添加' : '修改'"
       :visible="isVisible"
       :close-on-click-modal="false"
       :close-on-press-escape="false"

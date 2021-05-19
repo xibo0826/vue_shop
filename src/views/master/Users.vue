@@ -12,11 +12,7 @@
       :search="search"
     ></userRoleAssign>
     <div class="container">
-      <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-        <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-      </el-breadcrumb>
+      <breadcrumbNav></breadcrumbNav>
       <el-card>
         <div class="button-area">
           <el-button
@@ -179,6 +175,7 @@
   </div>
 </template>
 <script>
+import breadcrumbNav from 'components/breadcrumb.vue'
 import userUpsert from './UserUpsert.vue'
 import userRoleAssign from './UserRoleAssign.vue'
 export default {
@@ -271,6 +268,7 @@ export default {
     },
   },
   components: {
+    breadcrumbNav,
     userUpsert,
     userRoleAssign,
   },

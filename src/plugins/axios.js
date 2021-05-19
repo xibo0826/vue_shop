@@ -26,7 +26,7 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(
   (response) => {
     loadingInstance.close()
-    if (response.data.meta.status !== 200) {
+    if (response.data.meta.status >= 400) {
       window.vm.$message.error(response.data.meta.msg, false)
     } else {
       return response

@@ -12,19 +12,10 @@
         </div>
         <div>
           <span class="user">{{ $t("lang.welcome") }}: 王小虎</span>
-          <el-dropdown @command="changeLang">
-            <span class="el-dropdown-link">
-              {{ $t("lang.changeLanguage") }}<i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="zh">中文</el-dropdown-item>
-              <el-dropdown-item command="en">English</el-dropdown-item>
-              <el-dropdown-item command="ja">日本語</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <language></language>
           <a
             href="#"
-            @click.stop=""
+            @click.stop="logout"
             class="el-dropdown-link"
           >{{ $t("lang.logout") }}</a>
         </div>
@@ -74,11 +65,7 @@
   </div>
 </template>
 <script>
-import { localeZhcn } from 'element-ui/lib/locale/lang/zh-CN'
-import { localeEn } from 'element-ui/lib/locale/lang/en'
-import { localeJa } from 'element-ui/lib/locale/lang/ja'
-import locale from 'element-ui/lib/locale'
-
+import language from 'components/Language.vue'
 export default {
   created() {
     this.getMenuList()
@@ -103,30 +90,6 @@ export default {
       this.$router.push('/login')
     },
 
-    // 语言切换
-    changeLang(command) {
-      this.$i18n.locale = command
-      switch (command) {
-        case 'zh':
-          locale.use(localeZhcn)
-          break
-        case 'en':
-          locale.use(localeEn)
-          break
-        case 'ja':
-          locale.use(localeJa)
-          break
-        default:
-          locale.use(localeZhcn)
-          break
-      }
-      if (command === 'logout') {
-        // 登出
-        sessionStorage.clear()
-        this.$router.push('/login')
-      }
-    },
-
     // 获取菜单数据
     async getMenuList() {
       const { data } = await this.$http.get('menus')
@@ -143,6 +106,9 @@ export default {
       return this.$route.path.substring(1)
     },
   },
+  components: {
+    language
+  }
 }
 </script>
 <style lang="less" scoped>

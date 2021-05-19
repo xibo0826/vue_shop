@@ -11,11 +11,7 @@
       :isVisible.sync="roleAuthAssingParam.isVisible"
       :search="search"
     ></assignAuth>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-      <el-breadcrumb-item>角色列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <breadcrumbNav></breadcrumbNav>
     <el-card>
       <div class="button-area">
         <el-button
@@ -154,6 +150,8 @@
   </div>
 </template>
 <script>
+import breadcrumbNav from 'components/breadcrumb.vue'
+import operation from 'components/operation.vue'
 import upsertRole from './RoleUpsert.vue'
 import assignAuth from './RoleAuthAssign.vue'
 export default {
@@ -222,6 +220,8 @@ export default {
     },
   },
   components: {
+    breadcrumbNav,
+    operation,
     upsertRole,
     assignAuth
   },
