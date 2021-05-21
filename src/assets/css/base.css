@@ -105,3 +105,7 @@ a {
   margin-right: 0;
   margin-bottom: 0;
 }
+
+.el-input__inner {
+  border-radius: 0;
+}

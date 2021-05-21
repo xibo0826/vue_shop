@@ -7,7 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userName: '',
-    locale: 'zh'
+    locale: 'zh-CN'
   },
   mutations: {
     setUserName(state, uname) {
@@ -15,7 +15,7 @@ export default new Vuex.Store({
     },
     setLocale(state, locale) {
       state.locale = locale
-    }
+    },
   },
   getters: {
   },

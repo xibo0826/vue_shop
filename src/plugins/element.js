@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Button,Form, FormItem,Input, Container, Aside, Main, Menu, Submenu, MenuItemGroup, MenuItem, Header, Dropdown, DropdownMenu, 
         DropdownItem, Table, TableColumn, Breadcrumb, BreadcrumbItem, Card, Switch, Select, Option, Row, Col, Pagination, Tooltip, 
         Dialog, MessageBox, Tag, Tree, Cascader, Timeline, TimelineItem, Divider, RadioGroup, RadioButton, Radio, DatePicker, TimeSelect,
-        ColorPicker } from 'element-ui'
+        ColorPicker, Alert, Tabs, TabPane } from 'element-ui'
 
 import { customersMessage } from './config/resetMessage.js'
 Vue.use(Button)
@@ -45,6 +45,9 @@ Vue.use(Radio)
 Vue.use(DatePicker)
 Vue.use(TimeSelect)
 Vue.use(ColorPicker)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 
 Vue.prototype.$message = customersMessage;
 Vue.prototype.$messagebox = MessageBox;
