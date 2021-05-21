@@ -77,6 +77,7 @@ export default {
           const { data } = await this.$http.post('login', this.loginForm)
           this.$message.success('登录成功.')
           sessionStorage.setItem('token', data.data.token)
+          this.$store.commit('setUserName', this.loginForm.username)
           this.$router.push('/home')
         }
       })

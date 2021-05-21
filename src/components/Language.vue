@@ -4,7 +4,7 @@
       {{ $t("lang.changeLanguage") }}<i class="el-icon-arrow-down el-icon--right"></i>
     </span>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item command="zh">中文</el-dropdown-item>
+      <el-dropdown-item command="zh-CN">中文</el-dropdown-item>
       <el-dropdown-item command="en">English</el-dropdown-item>
       <el-dropdown-item command="ja">日本語</el-dropdown-item>
     </el-dropdown-menu>
@@ -25,8 +25,9 @@ export default {
     changeLang(command) {
       this.$i18n.locale = command
       localStorage.setItem('lang', command)
+      this.$store.commit('setLocale', command)
       switch (command) {
-        case 'zh':
+        case 'zh-CN':
           locale.use(localeZhcn)
           break
         case 'en':

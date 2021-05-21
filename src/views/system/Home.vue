@@ -3,15 +3,17 @@
     <el-container>
       <el-header>
         <div>
-          <img
-            src="~assets/images/logo.png"
-            alt=""
-            class="logo"
-          />
-          <h1 class="title">{{ $t("lang.systemName") }}</h1>
+          <a href="/welcome">
+            <img
+              src="~assets/images/logo.png"
+              alt=""
+              class="logo"
+            />
+            <h1 class="title">{{ $t("lang.systemName") }}</h1>
+          </a>
         </div>
         <div>
-          <span class="user">{{ $t("lang.welcome") }}: 王小虎</span>
+          <span class="user">{{ $t("lang.welcome") }}: {{ $store.state.userName }}</span>
           <language></language>
           <el-button
             class="el-dropdown-link"
@@ -68,6 +70,7 @@
 </template>
 <script>
 import language from 'components/Language.vue'
+
 export default {
   created() {
     this.getMenuList()

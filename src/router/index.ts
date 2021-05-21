@@ -20,7 +20,17 @@ const routes: Array<RouteConfig> = [
     meta: {
       title: '登录'
     },
-    component: () => import('views/system/Login.vue')
+    component: () => import('views/system/Login.vue'),
+    beforeEnter: (to, from, next) => {
+      const token: string | null = sessionStorage.getItem('token')
+      if (token !== null && token !=="") {
+        next({
+          name: 'Welcome'
+        })
+      } else {
+        next()
+      }
+    }
   },
   {
     name: 'Home',

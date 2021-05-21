@@ -5,5 +5,12 @@ export const lang = {
     logout: "logout",
     saveSuccess: "save is completed.",
     new: "New",
-    edit: "Update"
+    edit: "Update",
+    showHoliDayYes: 'show',
+    showHoliDayNo: 'hide',
+    calendarToday: 'Today',
+    calendarMonth: 'Month',
+    calendarWeek: 'Week',
+    calendarDay: 'Day',
+    calendarTimeLine: 'Time line',
 };

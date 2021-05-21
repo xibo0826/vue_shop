@@ -5,5 +5,12 @@ export const lang = {
     logout: "ログアウト",
     saveSuccess: "保存しました",
     new: "新規",
-    edit: "更新"
+    edit: "更新",
+    showHoliDayYes: '表示',
+    showHoliDayNo: '非表示',
+    calendarToday: '今日',
+    calendarMonth: '月',
+    calendarWeek: '週',
+    calendarDay: '日',
+    calendarTimeLine: 'リスト',
 };

@@ -271,7 +271,7 @@
 <script>
 import breadcrumbNav from 'components/breadcrumb.vue'
 import operation from 'components/operation.vue'
-import cityData from 'plugins/city/citydata_zh.js'
+import cityData from 'plugins/city/citydata_zh.ts'
 import * as common from 'plugins/common.ts'
 export default {
   data() {

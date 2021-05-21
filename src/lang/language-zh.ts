@@ -5,5 +5,12 @@ export const lang = {
     logout: "退出登录",
     saveSuccess: "保存成功",
     new: "添加",
-    edit: "修改"
+    edit: "修改",
+    showHoliDayYes: '显示',
+    showHoliDayNo: '关闭',
+    calendarToday: '今天',
+    calendarMonth: '月',
+    calendarWeek: '周',
+    calendarDay: '日',
+    calendarTimeLine: '时间线',
 };
