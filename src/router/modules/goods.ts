@@ -18,6 +18,15 @@ export default [
         component: () => import('views/goods/Goods.vue'),
     },
     {
+        name: 'SaveGood',
+        path: '/saveGood',
+        meta: {
+            title: '编辑商品',
+            menu: '商品管理'
+        },
+        component: () => import('views/goods/SaveGood.vue'),
+    },
+    {
         name: 'Params',
         path: '/params',
         meta: {

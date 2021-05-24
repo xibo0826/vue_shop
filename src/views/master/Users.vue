@@ -1,175 +1,68 @@
 <template>
   <div>
-    <userUpsert
-      :id="upsertUserForm.id"
-      :isVisible.sync="upsertUserForm.isVisible"
-      :search="search"
-    ></userUpsert>
-    <userRoleAssign
-      :user="assignUserRoleForm.user"
-      :isVisible.sync="assignUserRoleForm.isVisible"
-      :roles="searchForm.roleList"
-      :search="search"
-    ></userRoleAssign>
+    <userUpsert :id="upsertUserForm.id" :isVisible.sync="upsertUserForm.isVisible" :search="search"></userUpsert>
+    <userRoleAssign :user="assignUserRoleForm.user" :isVisible.sync="assignUserRoleForm.isVisible" :roles="searchForm.roleList" :search="search"></userRoleAssign>
     <div class="container">
       <breadcrumbNav></breadcrumbNav>
       <el-card>
         <div class="button-area">
-          <el-button
-            type="primary"
-            @click="search"
-            icon="el-icon-search"
-            size="mini"
-            plain
-          >检索</el-button>
-          <el-button
-            type="primary"
-            @click="newUser"
-            icon="el-icon-circle-plus-outline"
-            size="mini"
-            plain
-          >新建</el-button>
+          <el-button type="primary" @click="search" icon="el-icon-search" size="mini" plain>检索</el-button>
+          <el-button type="primary" @click="newUser" icon="el-icon-circle-plus-outline" size="mini" plain>新建</el-button>
         </div>
         <el-divider></el-divider>
         <div class="search-cond-area">
-          <el-row :gutter="20">
-            <el-col :span="4">
-              <el-input
-                v-model="searchForm.queryParams.query"
-                placeholder="请输入内容"
-                clearable
-                @keyup.enter.native="search"
-                @clear="search"
-              >
-                <template slot="prepend">用户名</template>
-              </el-input>
-            </el-col>
-            <el-col :span="14">
-              <div class="search-cond-title">
-                <span>角色</span>
-              </div>
-              <el-select
-                value="role"
-                multiple
-                placeholder="请选择"
-                v-model="searchForm.queryParams.role"
-              >
-                <el-option
-                  v-for="role in searchForm.roleList"
-                  :key="role.id"
-                  :label="role.roleName"
-                  :value="role.id"
-                >
+          <el-form label-width="100px" inline>
+            <el-form-item>
+              <template v-slot:label>
+                <div class="form-item-title">
+                  <span>用户名</span>
+                </div>
+              </template>
+              <el-input v-model="searchForm.queryParams.query" placeholder="请输入内容" clearable @keyup.enter.native="search" @clear="search"></el-input>
+            </el-form-item>
+
+            <el-form-item>
+              <template v-slot:label>
+                <div class="form-item-title">
+                  <span>角色</span>
+                </div>
+              </template>
+              <el-select value="role" multiple placeholder="请选择" v-model="searchForm.queryParams.role">
+                <el-option v-for="role in searchForm.roleList" :key="role.id" :label="role.roleName" :value="role.id">
                 </el-option>
               </el-select>
-            </el-col>
-          </el-row>
+            </el-form-item>
+          </el-form>
         </div>
         <el-divider></el-divider>
         <div class="table-area">
-          <el-table
-            :data="searchForm.searchResult.users"
-            stripe
-            border
-            max-height="620"
-          >
-            <el-table-column
-              type="index"
-              label=""
-              width="50"
-              align="center"
-            />
-            <el-table-column
-              prop="username"
-              label="姓名"
-              width="150"
-            />
-            <el-table-column
-              prop="email"
-              label="邮箱"
-              width="380"
-            />
-            <el-table-column
-              prop="mobile"
-              label="电话"
-              width="140"
-            />
-            <el-table-column
-              prop="role_name"
-              label="角色"
-              width="180"
-            />
-            <el-table-column
-              label="状态"
-              width="180"
-              align="center"
-            >
+          <el-table :data="searchForm.searchResult.users" stripe border max-height="620">
+            <el-table-column type="index" label="" width="50" align="center" />
+            <el-table-column prop="username" label="姓名" width="150" />
+            <el-table-column prop="email" label="邮箱" width="380" />
+            <el-table-column prop="mobile" label="电话" width="140" />
+            <el-table-column prop="role_name" label="角色" width="180" />
+            <el-table-column label="状态" width="180" align="center">
               <template slot-scope="scope">
-                <el-switch
-                  v-model="scope.row.mg_state"
-                  @change="updateUserStatus(scope.row)"
-                >
+                <el-switch v-model="scope.row.mg_state" @change="updateUserStatus(scope.row)">
                 </el-switch>
               </template>
             </el-table-column>
-            <el-table-column
-              label="操作"
-              width="180"
-              align="center"
-            >
+            <el-table-column label="操作" width="180" align="center">
               <template slot-scope="scope">
-                <el-tooltip
-                  content="编辑"
-                  placement="top"
-                  :enterable="false"
-                >
-                  <el-button
-                    icon="el-icon-edit"
-                    type="primary"
-                    circle
-                    size="mini"
-                    @click="editUser(scope.row.id)"
-                  ></el-button>
+                <el-tooltip content="编辑" placement="top" :enterable="false">
+                  <el-button icon="el-icon-edit" type="primary" circle size="mini" @click="editUser(scope.row.id)"></el-button>
                 </el-tooltip>
-                <el-tooltip
-                  content="删除"
-                  placement="top"
-                  :enterable="false"
-                >
-                  <el-button
-                    icon="el-icon-delete"
-                    type="danger"
-                    circle
-                    size="mini"
-                    @click="deleteUser(scope.row.id)"
-                  ></el-button>
+                <el-tooltip content="删除" placement="top" :enterable="false">
+                  <el-button icon="el-icon-delete" type="danger" circle size="mini" @click="deleteUser(scope.row.id)"></el-button>
                 </el-tooltip>
-                <el-tooltip
-                  content="分配角色"
-                  placement="top"
-                  :enterable="false"
-                >
-                  <el-button
-                    icon="el-icon-setting"
-                    type="warning"
-                    circle
-                    size="mini"
-                    @click="updateUserRole(scope.row)"
-                  ></el-button>
+                <el-tooltip content="分配角色" placement="top" :enterable="false">
+                  <el-button icon="el-icon-setting" type="warning" circle size="mini" @click="updateUserRole(scope.row)"></el-button>
                 </el-tooltip>
               </template>
             </el-table-column>
           </el-table>
-          <el-pagination
-            @size-change="resetPagesize"
-            @current-change="search"
-            :current-page.sync="searchForm.queryParams.pagenum"
-            :page-size="searchForm.queryParams.pagesize"
-            :page-sizes="[10, 20, 50, 100]"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="searchForm.searchResult.total"
-            background
-          >
+          <el-pagination @size-change="resetPagesize" @current-change="search" :current-page.sync="searchForm.queryParams.pagenum" :page-size="searchForm.queryParams.pagesize" :page-sizes="[10, 20, 50, 100]" layout="total, sizes, prev, pager, next, jumper" :total="searchForm.searchResult.total" background>
           </el-pagination>
         </div>
       </el-card>
@@ -208,7 +101,7 @@ export default {
 
       assignUserRoleForm: {
         isVisible: false,
-        user: null
+        user: null,
       },
     }
   },

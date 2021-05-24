@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { Button,Form, FormItem,Input, Container, Aside, Main, Menu, Submenu, MenuItemGroup, MenuItem, Header, Dropdown, DropdownMenu, 
         DropdownItem, Table, TableColumn, Breadcrumb, BreadcrumbItem, Card, Switch, Select, Option, Row, Col, Pagination, Tooltip, 
         Dialog, MessageBox, Tag, Tree, Cascader, Timeline, TimelineItem, Divider, RadioGroup, RadioButton, Radio, DatePicker, TimeSelect,
-        ColorPicker, Alert, Tabs, TabPane } from 'element-ui'
+        ColorPicker, Alert, Tabs, TabPane, Steps, Step, Checkbox, CheckboxGroup, Upload } from 'element-ui'
 
 import { customersMessage } from './config/resetMessage.js'
 Vue.use(Button)
@@ -48,6 +48,11 @@ Vue.use(ColorPicker)
 Vue.use(Alert)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
+Vue.use(Upload)
 
 Vue.prototype.$message = customersMessage;
 Vue.prototype.$messagebox = MessageBox;
